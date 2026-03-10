@@ -978,7 +978,10 @@ const DASHBOARD_HTML = `<!DOCTYPE html>
     var a    = document.createElement('a');
     a.href     = url;
     a.download = 'devflow-analysis-' + new Date().toISOString().slice(0,10) + '.md';
+    a.style.display = 'none';
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
   }
 

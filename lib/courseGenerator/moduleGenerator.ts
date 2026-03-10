@@ -55,12 +55,12 @@ ACTIVITY TYPE FOR THIS MODULE: ${moduleSpec.activityType}
 
 MODULE ID: ${moduleSpec.moduleId}
 
-Generate exactly 15-18 tasks following the Golden Arc:
-- Tasks 1-2: HOOK conversation
-- Tasks 3-8: EXPLORE dialogues (alternate who speaks, reference ${world.recurringElement})
-- Tasks 9-11: INTERACT (use ${moduleSpec.activityType} — make it test the exact concept taught)
-- Tasks 12-14: REINFORCE (2-3 activity-mcq tasks)
-- Task 15 (last): CELEBRATE (activity-character-feedback — reference the world and this module's concept)
+Generate exactly ${brief.slidesPerModule} tasks following the Golden Arc (scale proportionally):
+- ~10% HOOK (conversation tasks to establish the story beat)
+- ~40% EXPLORE (dialogue tasks — alternate who speaks, reference ${world.recurringElement})
+- ~20% INTERACT (use ${moduleSpec.activityType} — make it test the exact concept taught)
+- ~20% REINFORCE (activity-mcq tasks to test knowledge)
+- Last task: CELEBRATE (activity-character-feedback — reference the world and this module's concept)
 
 Return ONLY the JSON array. No markdown, no explanation.`
 
@@ -70,7 +70,7 @@ Return ONLY the JSON array. No markdown, no explanation.`
     const stream = client.messages.stream({
       model: 'claude-sonnet-4-6',
       max_tokens: 4000,
-      system: buildModuleSystemPrompt(),
+      system: buildModuleSystemPrompt(brief.gradeRange),
       messages: [{ role: 'user', content: userPrompt }],
     })
 
@@ -87,7 +87,7 @@ Return ONLY the JSON array. No markdown, no explanation.`
     const response = await client.messages.create({
       model: 'claude-sonnet-4-6',
       max_tokens: 4000,
-      system: buildModuleSystemPrompt(),
+      system: buildModuleSystemPrompt(brief.gradeRange),
       messages: [{ role: 'user', content: userPrompt }],
     })
     fullText = response.content[0].type === 'text' ? response.content[0].text : ''

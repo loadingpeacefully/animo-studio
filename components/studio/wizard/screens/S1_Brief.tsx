@@ -16,6 +16,12 @@ const ROLES: { value: CourseBrief['characterRole']; label: string; desc: string 
   { value: 'mentor', label: 'Mentor', desc: 'Challenges and provokes deeper thinking' },
 ]
 const MODULE_COUNTS: CourseBrief['moduleCount'][] = [5, 7, 8, 10]
+const SLIDES_PER_MODULE: { value: NonNullable<CourseBrief['slidesPerModule']>; label: string; desc: string }[] = [
+  { value: 12, label: '12',  desc: 'Quick (~5 min)' },
+  { value: 15, label: '15',  desc: 'Standard (~8 min)' },
+  { value: 20, label: '20',  desc: 'Detailed (~12 min)' },
+  { value: 25, label: '25',  desc: 'Deep dive (~15 min)' },
+]
 
 interface S1Props {
   brief: Partial<CourseBrief>
@@ -129,26 +135,54 @@ export function S1_Brief({ brief, onChange }: S1Props) {
           </div>
         </div>
 
-        {/* Module Count */}
-        <div>
-          <label className="block text-[11px] font-mono uppercase tracking-widest text-muted mb-2">
-            Number of Modules
-          </label>
-          <div className="flex gap-2">
-            {MODULE_COUNTS.map(n => (
-              <button
-                key={n}
-                type="button"
-                onClick={() => onChange({ ...brief, moduleCount: n })}
-                className={`flex-1 py-2.5 rounded-xl text-[13px] font-semibold border transition-all ${
-                  brief.moduleCount === n
-                    ? 'bg-accent text-white border-accent'
-                    : 'bg-surface border-edge text-muted hover:border-[var(--muted)]'
-                }`}
-              >
-                {n}
-              </button>
-            ))}
+        {/* Module Count + Slides per Module — side by side */}
+        <div className="grid grid-cols-2 gap-6">
+          <div>
+            <label className="block text-[11px] font-mono uppercase tracking-widest text-muted mb-2">
+              Number of Modules
+            </label>
+            <div className="flex gap-2">
+              {MODULE_COUNTS.map(n => (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => onChange({ ...brief, moduleCount: n })}
+                  className={`flex-1 py-2.5 rounded-xl text-[13px] font-semibold border transition-all ${
+                    brief.moduleCount === n
+                      ? 'bg-accent text-white border-accent'
+                      : 'bg-surface border-edge text-muted hover:border-[var(--muted)]'
+                  }`}
+                >
+                  {n}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-[11px] font-mono uppercase tracking-widest text-muted mb-2">
+              Slides per Module
+            </label>
+            <div className="flex gap-2">
+              {SLIDES_PER_MODULE.map(s => (
+                <button
+                  key={s.value}
+                  type="button"
+                  onClick={() => onChange({ ...brief, slidesPerModule: s.value })}
+                  className={`flex-1 py-2.5 rounded-xl text-[13px] font-semibold border transition-all ${
+                    brief.slidesPerModule === s.value
+                      ? 'bg-accent text-white border-accent'
+                      : 'bg-surface border-edge text-muted hover:border-[var(--muted)]'
+                  }`}
+                  title={s.desc}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+            <p className="text-[10px] text-muted mt-1.5">
+              {SLIDES_PER_MODULE.find(s => s.value === brief.slidesPerModule)?.desc ?? 'Average number of tasks/slides per module'}
+            </p>
           </div>
         </div>
 

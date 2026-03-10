@@ -2,6 +2,9 @@
 const nextConfig = {
   // Spine player requires transpilation for Next.js bundler
   transpilePackages: ['@esotericsoftware/spine-player'],
+  experimental: {
+    instrumentationHook: true,
+  },
 }
 
 export default nextConfig

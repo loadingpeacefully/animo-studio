@@ -1,0 +1,13 @@
+{
+  "name": "devflow",
+  "version": "1.0.0",
+  "description": "Drop-in API call recorder & AI system design visualizer for Node.js apps",
+  "main": "index.js",
+  "keywords": ["api", "system-design", "visualizer", "debug", "proxy"],
+  "dependencies": {
+    "ws": "^8.16.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

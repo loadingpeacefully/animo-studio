@@ -62,7 +62,7 @@ export function WizardShell() {
         return
       }
       // S1 → S2: commit brief to store before advancing
-      if (step === 1 && draftBrief.topic && draftBrief.gradeRange && draftBrief.tone && draftBrief.characterRole && draftBrief.moduleCount) {
+      if (step === 1 && draftBrief.topic && draftBrief.gradeRange && draftBrief.tone && draftBrief.characterRole && draftBrief.moduleCount && draftBrief.slidesPerModule) {
         setBrief(draftBrief as CourseBrief)
       }
       navigate(step + 1)

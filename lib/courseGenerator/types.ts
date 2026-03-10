@@ -5,6 +5,7 @@ export interface CourseBrief {
   tone: 'fun' | 'serious' | 'adventurous' | 'calm';
   characterRole: 'guide' | 'peer' | 'mentor';
   moduleCount: 5 | 7 | 8 | 10;
+  slidesPerModule: 12 | 15 | 20 | 25;  // average tasks/slides per module
   subject?: string;           // optional subject tag
 }
 
